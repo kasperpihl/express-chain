@@ -57,8 +57,17 @@ export default function makeMiddleware(name, validator, handler) {
     }
     
     // Check if caller is express middleware
-    if(inputs && inputs.length >= 3 && typeof inputs[0] === 'object' && inputs[0].app && inputs[0].baseUrl) {
-      return middleware(...inputs);
+    if(
+      inputs &&
+      inputs.length >= 3 && // Has at least req, res, next
+      inputs.length <= 4 && // Support err, req, res, next
+      typeof inputs[0] === 'object' && // Check req type
+      inputs[0].app // Check req validity
+    ) {
+      // Reset inputs if caller is express it self.
+      const tempInputs = inputs;
+      inputs = [];
+      return middleware(...tempInputs);
     }
     return middleware;
   }
