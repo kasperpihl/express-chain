@@ -57,7 +57,7 @@ export default function makeMiddleware(name, validator, handler) {
     }
     
     // Check if caller is express middleware
-    if(inputs && typeof inputs[0] === 'object' && inputs[0].app) {
+    if(inputs && inputs.length >= 3 && typeof inputs[0] === 'object' && inputs[0].app && inputs[0].baseUrl) {
       return middleware(...inputs);
     }
     return middleware;
