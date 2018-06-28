@@ -1,6 +1,6 @@
 {
   "name": "express-chain",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A chain for express with easy input/output between middlewares",
   "main": "dist/index.js",
   "scripts": {
