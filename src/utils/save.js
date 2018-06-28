@@ -26,8 +26,6 @@ const setDeep = (name, key, value, res) => {
       }
     });
   }
-  
-  
 }
 
 export default (name, saves, req, res) => {

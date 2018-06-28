@@ -13,6 +13,7 @@ export default function makeMiddleware(name, validator, handler) {
   if(typeof handler !== 'function') {
     return console.warn('makeMiddleware: should provide function to run');
   }
+
   function loadMiddleware(...inputs) {
     function middleware(req, res, next){
       const saves = this; // Using binding context to chain the save command
@@ -54,7 +55,9 @@ export default function makeMiddleware(name, validator, handler) {
     middleware.save = function(...saves) {
       return middleware.bind(saves);
     }
-    if(inputs && inputs[0] && inputs[0].app && inputs[0].app.locals) {
+    
+    // Check if caller is express middleware
+    if(inputs && typeof inputs[0] === 'object' && inputs[0].app) {
       return middleware(...inputs);
     }
     return middleware;
