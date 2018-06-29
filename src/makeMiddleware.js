@@ -31,7 +31,7 @@ export default function makeMiddleware(name, validator, handler) {
       if (validator) {
         const error = object.as(validator).test(actualInput);
         if (error) {
-          return next(`${name}: ${error}`);
+          return next(`${req.route.path} ${name}: ${error}`);
         }
       }
 
